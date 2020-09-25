@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cutety.mapper.CheckInInfoMapper">
+  <resultMap id="BaseResultMap" type="com.cutety.entity.CheckInInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="stu_id" jdbcType="VARCHAR" property="stuId" />
+    <result column="check_in_stutas" jdbcType="INTEGER" property="checkInStutas" />
+    <result column="check_in_time" jdbcType="TIMESTAMP" property="checkInTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, stu_id, check_in_stutas, check_in_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from check_in_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from check_in_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cutety.entity.CheckInInfo">
+    insert into check_in_info (id, stu_id, check_in_stutas, 
+      check_in_time)
+    values (#{id,jdbcType=INTEGER}, #{stuId,jdbcType=VARCHAR}, #{checkInStutas,jdbcType=INTEGER}, 
+      #{checkInTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cutety.entity.CheckInInfo">
+    insert into check_in_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="stuId != null">
+        stu_id,
+      </if>
+      <if test="checkInStutas != null">
+        check_in_stutas,
+      </if>
+      <if test="checkInTime != null">
+        check_in_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="stuId != null">
+        #{stuId,jdbcType=VARCHAR},
+      </if>
+      <if test="checkInStutas != null">
+        #{checkInStutas,jdbcType=INTEGER},
+      </if>
+      <if test="checkInTime != null">
+        #{checkInTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cutety.entity.CheckInInfo">
+    update check_in_info
+    <set>
+      <if test="stuId != null">
+        stu_id = #{stuId,jdbcType=VARCHAR},
+      </if>
+      <if test="checkInStutas != null">
+        check_in_stutas = #{checkInStutas,jdbcType=INTEGER},
+      </if>
+      <if test="checkInTime != null">
+        check_in_time = #{checkInTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cutety.entity.CheckInInfo">
+    update check_in_info
+    set stu_id = #{stuId,jdbcType=VARCHAR},
+      check_in_stutas = #{checkInStutas,jdbcType=INTEGER},
+      check_in_time = #{checkInTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cutety.mapper.ApplyInfoMapper">
+    <resultMap id="BaseResultMap" type="com.cutety.entity.ApplyInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="stu_id" jdbcType="VARCHAR" property="stuId"/>
+        <result column="apply_preference" jdbcType="INTEGER" property="applyPreference"/>
+        <result column="admission_major" jdbcType="VARCHAR" property="admissionMajor"/>
+        <result column="region" jdbcType="VARCHAR" property="region"/>
+        <result column="major_preference_first" jdbcType="VARCHAR" property="majorPreferenceFirst"/>
+        <result column="major_preference_second" jdbcType="VARCHAR" property="majorPreferenceSecond"/>
+        <result column="major_preference_third" jdbcType="VARCHAR" property="majorPreferenceThird"/>
+        <result column="major_preference_forth" jdbcType="VARCHAR" property="majorPreferenceForth"/>
+        <result column="major_preference_fifth" jdbcType="VARCHAR" property="majorPreferenceFifth"/>
+    </resultMap>
+    <select id="getMajorRank" parameterType="java.lang.String" resultType="hashmap">
+        SELECT
+        apply_info.admission_major as 'name' ,
+        COUNT(apply_info.admission_major) as 'value'
+        FROM apply_info
+        LEFT JOIN stu_info
+        on stu_info.stu_id = apply_info.stu_id
+        WHERE stu_info.grade = #{year,jdbcType=VARCHAR}
+        GROUP BY apply_info.admission_major
+        ORDER BY value DESC
+  </select>
+
+    <sql id="Base_Column_List">
+    id, stu_id, apply_preference, admission_major, region, major_preference_first, major_preference_second, 
+    major_preference_third, major_preference_forth, major_preference_fifth
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from apply_info
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from apply_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.cutety.entity.ApplyInfo">
+    insert into apply_info (id, stu_id, apply_preference, 
+      admission_major, region, major_preference_first, 
+      major_preference_second, major_preference_third, 
+      major_preference_forth, major_preference_fifth
+      )
+    values (#{id,jdbcType=INTEGER}, #{stuId,jdbcType=VARCHAR}, #{applyPreference,jdbcType=INTEGER}, 
+      #{admissionMajor,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR}, #{majorPreferenceFirst,jdbcType=VARCHAR}, 
+      #{majorPreferenceSecond,jdbcType=VARCHAR}, #{majorPreferenceThird,jdbcType=VARCHAR}, 
+      #{majorPreferenceForth,jdbcType=VARCHAR}, #{majorPreferenceFifth,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.cutety.entity.ApplyInfo">
+        insert into apply_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="stuId != null">
+                stu_id,
+            </if>
+            <if test="applyPreference != null">
+                apply_preference,
+            </if>
+            <if test="admissionMajor != null">
+                admission_major,
+            </if>
+            <if test="region != null">
+                region,
+            </if>
+            <if test="majorPreferenceFirst != null">
+                major_preference_first,
+            </if>
+            <if test="majorPreferenceSecond != null">
+                major_preference_second,
+            </if>
+            <if test="majorPreferenceThird != null">
+                major_preference_third,
+            </if>
+            <if test="majorPreferenceForth != null">
+                major_preference_forth,
+            </if>
+            <if test="majorPreferenceFifth != null">
+                major_preference_fifth,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="stuId != null">
+                #{stuId,jdbcType=VARCHAR},
+            </if>
+            <if test="applyPreference != null">
+                #{applyPreference,jdbcType=INTEGER},
+            </if>
+            <if test="admissionMajor != null">
+                #{admissionMajor,jdbcType=VARCHAR},
+            </if>
+            <if test="region != null">
+                #{region,jdbcType=VARCHAR},
+            </if>
+            <if test="majorPreferenceFirst != null">
+                #{majorPreferenceFirst,jdbcType=VARCHAR},
+            </if>
+            <if test="majorPreferenceSecond != null">
+                #{majorPreferenceSecond,jdbcType=VARCHAR},
+            </if>
+            <if test="majorPreferenceThird != null">
+                #{majorPreferenceThird,jdbcType=VARCHAR},
+            </if>
+            <if test="majorPreferenceForth != null">
+                #{majorPreferenceForth,jdbcType=VARCHAR},
+            </if>
+            <if test="majorPreferenceFifth != null">
+                #{majorPreferenceFifth,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.cutety.entity.ApplyInfo">
+        update apply_info
+        <set>
+            <if test="stuId != null">
+                stu_id = #{stuId,jdbcType=VARCHAR},
+            </if>
+            <if test="applyPreference != null">
+                apply_preference = #{applyPreference,jdbcType=INTEGER},
+            </if>
+            <if test="admissionMajor != null">
+                admission_major = #{admissionMajor,jdbcType=VARCHAR},
+            </if>
+            <if test="region != null">
+                region = #{region,jdbcType=VARCHAR},
+            </if>
+            <if test="majorPreferenceFirst != null">
+                major_preference_first = #{majorPreferenceFirst,jdbcType=VARCHAR},
+            </if>
+            <if test="majorPreferenceSecond != null">
+                major_preference_second = #{majorPreferenceSecond,jdbcType=VARCHAR},
+            </if>
+            <if test="majorPreferenceThird != null">
+                major_preference_third = #{majorPreferenceThird,jdbcType=VARCHAR},
+            </if>
+            <if test="majorPreferenceForth != null">
+                major_preference_forth = #{majorPreferenceForth,jdbcType=VARCHAR},
+            </if>
+            <if test="majorPreferenceFifth != null">
+                major_preference_fifth = #{majorPreferenceFifth,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.cutety.entity.ApplyInfo">
+    update apply_info
+    set stu_id = #{stuId,jdbcType=VARCHAR},
+      apply_preference = #{applyPreference,jdbcType=INTEGER},
+      admission_major = #{admissionMajor,jdbcType=VARCHAR},
+      region = #{region,jdbcType=VARCHAR},
+      major_preference_first = #{majorPreferenceFirst,jdbcType=VARCHAR},
+      major_preference_second = #{majorPreferenceSecond,jdbcType=VARCHAR},
+      major_preference_third = #{majorPreferenceThird,jdbcType=VARCHAR},
+      major_preference_forth = #{majorPreferenceForth,jdbcType=VARCHAR},
+      major_preference_fifth = #{majorPreferenceFifth,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
