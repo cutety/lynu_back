@@ -23,8 +23,8 @@ public interface StuInfoMapper {
 
     int updateByPrimaryKey(StuInfo record);
 
-    @Select("select count(*) from stu_info where gender = #{gender}")
-    int getAmountByGender(String gender);
+    @Select("select count(*) from stu_info where gender = #{gender} and grade = #{year}")
+    int getAmountByGender(String gender, String year);
 
     @Select("select count(*) from stu_info where grade = #{year}")
     int getAmountByYear(String year);
@@ -35,4 +35,14 @@ public interface StuInfoMapper {
     List<Map<Integer, Integer>> getAgeDistribution(String year);
 
     List<Map<String, String>> getStuInfoTable(String year);
+
+    List<Map<String, String>> getStuHouseholdRegistry(String year);
+
+    List<Map<String, String>> getStuProvince(String year);
+
+    List<Map<String, String>> getFirstname(String year);
+    List<Map<String, String>> getSameName(String year);
+    List<Map<String, String>> getSameBirthday(String year);
+
+
 }

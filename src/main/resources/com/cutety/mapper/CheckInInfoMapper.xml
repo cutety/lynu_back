@@ -4,11 +4,13 @@
   <resultMap id="BaseResultMap" type="com.cutety.entity.CheckInInfo">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="stu_id" jdbcType="VARCHAR" property="stuId" />
-    <result column="check_in_stutas" jdbcType="INTEGER" property="checkInStutas" />
+    <result column="stu_name" jdbcType="VARCHAR" property="stuName"/>
+    <result column="major" jdbcType="VARCHAR" property="major"/>
+    <result column="check_in_status" jdbcType="INTEGER" property="checkInStatus" />
     <result column="check_in_time" jdbcType="TIMESTAMP" property="checkInTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, stu_id, check_in_stutas, check_in_time
+    id, stu_id, check_in_status, check_in_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -21,9 +23,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.cutety.entity.CheckInInfo">
-    insert into check_in_info (id, stu_id, check_in_stutas, 
+    insert into check_in_info (id, stu_id, stu_name, major, check_in_status,
       check_in_time)
-    values (#{id,jdbcType=INTEGER}, #{stuId,jdbcType=VARCHAR}, #{checkInStutas,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{stuId,jdbcType=VARCHAR}, #{stuName,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, #{checkInStatus,jdbcType=INTEGER},
       #{checkInTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.cutety.entity.CheckInInfo">
@@ -35,8 +37,8 @@
       <if test="stuId != null">
         stu_id,
       </if>
-      <if test="checkInStutas != null">
-        check_in_stutas,
+      <if test="checkInStatus != null">
+        check_in_status,
       </if>
       <if test="checkInTime != null">
         check_in_time,
@@ -49,8 +51,8 @@
       <if test="stuId != null">
         #{stuId,jdbcType=VARCHAR},
       </if>
-      <if test="checkInStutas != null">
-        #{checkInStutas,jdbcType=INTEGER},
+      <if test="checkInStatus != null">
+        #{checkInStatus,jdbcType=INTEGER},
       </if>
       <if test="checkInTime != null">
         #{checkInTime,jdbcType=TIMESTAMP},
@@ -63,19 +65,25 @@
       <if test="stuId != null">
         stu_id = #{stuId,jdbcType=VARCHAR},
       </if>
-      <if test="checkInStutas != null">
-        check_in_stutas = #{checkInStutas,jdbcType=INTEGER},
+      <if test="stuName != null">
+        stu_name = #{stuName,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        major = #{major,jdbcType=VARCHAR},
       </if>
       <if test="checkInTime != null">
         check_in_time = #{checkInTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="checkInStatus != null">
+        check_in_status = 1,
+      </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where stu_id = #{stuId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cutety.entity.CheckInInfo">
     update check_in_info
     set stu_id = #{stuId,jdbcType=VARCHAR},
-      check_in_stutas = #{checkInStutas,jdbcType=INTEGER},
+      check_in_status = #{checkInStatus,jdbcType=INTEGER},
       check_in_time = #{checkInTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>

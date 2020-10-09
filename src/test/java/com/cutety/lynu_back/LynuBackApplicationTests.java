@@ -15,6 +15,7 @@ class LynuBackApplicationTests {
     private ApplyInfoService applyInfoService;
     @Autowired
     private StuInfoService stuInfoService;
+
     @Test
     void contextLoads() {
     }
@@ -26,7 +27,7 @@ class LynuBackApplicationTests {
 
     @Test
     void getMaleFemaleRatio() {
-        System.out.println(stuInfoService.maleAndFemaleAmount());
+        System.out.println(stuInfoService.maleAndFemaleAmount("17"));
     }
 
     @Test
@@ -47,5 +48,10 @@ class LynuBackApplicationTests {
     @Test
     void getStuInfoTable() {
         System.out.println(stuInfoService.getStuInfoTable("19"));
+    }
+
+    @Test
+    void getStuHouseholdRegistry() {
+        System.out.println(stuInfoService.getStuHouseholdRegistry("19"));
     }
 }

@@ -2,6 +2,8 @@ package com.cutety.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.parser.Feature;
+import com.alibaba.fastjson.parser.ParserConfig;
 import com.cutety.service.StuInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,9 +25,9 @@ public class StuInfoController {
     @Autowired
     private StuInfoService stuInfoService;
 
-    @GetMapping("/male_and_female_amount")
-    public Map<String, Integer> maleAndFemaleAmount() {
-        return stuInfoService.maleAndFemaleAmount();
+    @GetMapping("/male_and_female_amount/{year}")
+    public Map<String, Integer> maleAndFemaleAmount(@PathVariable String year) {
+        return stuInfoService.maleAndFemaleAmount(year);
     }
 
     @GetMapping("/amount/{year}")
@@ -52,5 +54,39 @@ public class StuInfoController {
             list.add(list1);
         });
         return list;
+    }
+
+    @GetMapping("/household_registry/{year}")
+    public Object getStuHouseholdRegistry(@PathVariable String year) {
+        List<Map<String, String>> stuHouseholdRegistry = stuInfoService.getStuHouseholdRegistry(year);
+        Object parse = JSONObject.parse(JSONObject.toJSONString(stuHouseholdRegistry), Feature.OrderedField);
+        return parse;
+    }
+    @GetMapping("/province/{year}")
+    public Object getStuProvince(@PathVariable String year) {
+        List<Map<String, String>> stuProvince = stuInfoService.getStuProvince(year);
+        Object parse = JSONObject.parse(JSONObject.toJSONString(stuProvince), Feature.OrderedField);
+        return parse;
+    }
+
+    @GetMapping("/firstname/{year}")
+    public Object getFirstname(@PathVariable String year) {
+        List<Map<String, String>> firstname = stuInfoService.getFirstname(year);
+        Object parse = JSONObject.parse(JSONObject.toJSONString(firstname), Feature.OrderedField);
+        return parse;
+    }
+
+    @GetMapping("/sameName/{year}")
+    public Object getSameName(@PathVariable String year) {
+        List<Map<String, String>> sameName = stuInfoService.getSameName(year);
+        Object parse = JSONObject.parse(JSONObject.toJSONString(sameName), Feature.OrderedField);
+        return parse;
+    }
+
+    @GetMapping("/sameBirthday/{year}")
+    public Object getSameBirthday(@PathVariable String year) {
+        List<Map<String, String>> sameBirthday = stuInfoService.getSameBirthday(year);
+        Object parse = JSONObject.parse(JSONObject.toJSONString(sameBirthday), Feature.OrderedField);
+        return parse;
     }
 }

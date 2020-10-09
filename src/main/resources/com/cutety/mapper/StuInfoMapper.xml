@@ -26,6 +26,60 @@
     </association>
   </resultMap>
 
+  <select id="getStuHouseholdRegistry" resultType="java.util.LinkedHashMap" parameterType="java.lang.String">
+    select
+    candidate_household_registry as name,
+    count(candidate_household_registry) as value,
+    adcode as cityCode
+    from stu_info
+    where grade = #{year,jdbcType=VARCHAR}
+    group by candidate_household_registry
+    order by value desc
+  </select>
+
+  <select id="getStuProvince" resultType="java.util.LinkedHashMap" parameterType="java.lang.String">
+    SELECT CASE
+    WHEN adcode >= '110000' AND adcode &lt; '120000' THEN '北京'
+    WHEN adcode >= '120000' AND adcode &lt; '130000' THEN '天津'
+    WHEN adcode >= '130000' AND adcode &lt; '140000' THEN '河北'
+    WHEN adcode >= '140000' AND adcode &lt; '150000' THEN '山西'
+    WHEN adcode >= '150000' AND adcode &lt; '210000' THEN '内蒙古'
+    WHEN adcode >= '210000' AND adcode &lt; '220000' THEN '辽宁'
+    WHEN adcode >= '220000' AND adcode &lt; '230000' THEN '吉林'
+    WHEN adcode >= '230000' AND adcode &lt; '310000' THEN '黑龙江'
+    WHEN adcode >= '310000' AND adcode &lt; '320000' THEN '上海'
+    WHEN adcode >= '320000' AND adcode &lt; '330000' THEN '江苏'
+    WHEN adcode >= '330000' AND adcode &lt; '340000' THEN '浙江'
+    WHEN adcode >= '340000' AND adcode &lt; '350000' THEN '安徽'
+    WHEN adcode >= '350000' AND adcode &lt; '360000' THEN '福建'
+    WHEN adcode >= '360000' AND adcode &lt; '370000' THEN '江西'
+    WHEN adcode >= '370000' AND adcode &lt; '410000' THEN '山东'
+    WHEN adcode >= '410000' AND adcode &lt; '420000' THEN '河南'
+    WHEN adcode >= '420000' AND adcode &lt; '430000' THEN '湖北'
+    WHEN adcode >= '430000' AND adcode &lt; '440000' THEN '湖南'
+    WHEN adcode >= '440000' AND adcode &lt; '450000' THEN '广东'
+    WHEN adcode >= '450000' AND adcode &lt; '460000' THEN '广西'
+    WHEN adcode >= '460000' AND adcode &lt; '500000' THEN '海南'
+    WHEN adcode >= '500000' AND adcode &lt; '510000' THEN '重庆'
+    WHEN adcode >= '510000' AND adcode &lt; '520000' THEN '四川'
+    WHEN adcode >= '520000' AND adcode &lt; '530000' THEN '贵州'
+    WHEN adcode >= '530000' AND adcode &lt; '540000' THEN '云南'
+    WHEN adcode >= '540000' AND adcode &lt; '610000' THEN '西藏'
+    WHEN adcode >= '610000' AND adcode &lt; '620000' THEN '陕西'
+    WHEN adcode >= '620000' AND adcode &lt; '630000' THEN '甘肃'
+    WHEN adcode >= '630000' AND adcode &lt; '640000' THEN '青海'
+    WHEN adcode >= '640000' AND adcode &lt; '650000' THEN '宁夏'
+    WHEN adcode >= '650000' AND adcode &lt; '710000' THEN '新疆'
+    WHEN adcode >= '710000' AND adcode &lt; '810000' THEN '台湾'
+    WHEN adcode >= '810000' AND adcode &lt; '820000' THEN '香港'
+    WHEN adcode >= '820000' THEN '澳门'
+    END AS name,
+    COUNT(*) AS value
+    FROM stu_info
+    where grade = #{grade,jdbcType=VARCHAR}
+    GROUP BY name
+  </select>
+
   <select id="getStuInfoTable" resultType="java.util.LinkedHashMap" parameterType="java.lang.String">
       SELECT
       stu_info.stu_name,
@@ -37,6 +91,30 @@
       where stu_info.grade = #{year,jdbcType=VARCHAR}
   </select>
 
+  <select id="getFirstname" resultType="java.util.LinkedHashMap" parameterType="java.lang.String">
+    SELECT
+      COUNT(*) value,
+      name
+    FROM (
+           SELECT
+             left(stu_name,1 ) name
+           FROM
+             stu_info
+           where grade = #{year,jdbcType=VARCHAR}
+         ) t
+    GROUP BY name
+    ORDER BY value DESC
+  </select>
+
+  <select id="getSameName" resultType="java.util.LinkedHashMap" parameterType="java.lang.String">
+    SELECT
+        COUNT(*) value,
+        stu_name as name
+    FROM stu_info
+    WHERE grade = #{year,jdbcType=VARCHAR}
+    GROUP BY name
+    ORDER BY value DESC
+  </select>
   <select id="getAgeDistribution" resultType="hashmap" parameterType="java.lang.String">
      SELECT TIMESTAMPDIFF(year, birthday, curdate()) as age,
            COUNT(*) amount
@@ -45,6 +123,17 @@
      and grade = #{year,jdbcType=VARCHAR}
      GROUP BY age
      ORDER BY age ASC
+  </select>
+  <select id="getSameBirthday" resultType="java.util.LinkedHashMap" parameterType="java.lang.String">
+    SELECT
+      COUNT(*) value,
+      right(birthday,5) name
+    FROM stu_info
+    WHERE birthday != 0000-0-0
+      and grade = '20'
+    GROUP BY name
+    HAVING value > 3
+    ORDER BY name ASC
   </select>
 
   <sql id="Base_Column_List">
