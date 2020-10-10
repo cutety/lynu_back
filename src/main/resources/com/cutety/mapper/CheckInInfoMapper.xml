@@ -10,7 +10,7 @@
     <result column="check_in_time" jdbcType="TIMESTAMP" property="checkInTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, stu_id, check_in_status, check_in_time
+    id, stu_id,stu_name,marjor check_in_status, check_in_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 

@@ -5,9 +5,11 @@ import com.cutety.mapper.ApplyInfoMapper;
 import com.cutety.service.ApplyInfoService;
 import com.cutety.service.StuInfoService;
 import org.junit.jupiter.api.Test;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @SpringBootTest
 class LynuBackApplicationTests {
 

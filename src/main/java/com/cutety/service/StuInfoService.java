@@ -2,6 +2,7 @@ package com.cutety.service;
 
 import com.cutety.mapper.StuInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.time.Year;
@@ -14,6 +15,7 @@ import java.util.Map;
  * Created by cutety on 2020/9/24,13:07.
  **/
 @Service
+@Component
 public class StuInfoService {
     @Autowired
     private StuInfoMapper stuInfoMapper;
