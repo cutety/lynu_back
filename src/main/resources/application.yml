@@ -8,9 +8,9 @@ spring:
     active: dev
   datasource:
     name: root
-    url: jdbc:mysql://39.97.178.218/stu_it_info?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql:/0.0.0.0/stu_it_info?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     username: root
-    password: 123456
+    password:
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
