@@ -17,8 +17,8 @@ public class CheckInController {
     private WebSocket webSocket;
 
     @ResponseBody
-    @PostMapping("/checkIn")
-    public String checkIn(@RequestBody CheckInInfo record) {
+    @GetMapping("/checkIn")
+    public String checkIn(CheckInInfo record) {
         LocalDateTime now = LocalDateTime.now();
         record.setCheckInTime(now);
         record.setCheckInStatus(1);
@@ -29,5 +29,11 @@ public class CheckInController {
         } else {
             return "fail";
         }
+    }
+
+    @ResponseBody
+    @GetMapping("/checkInAmount")
+    public Integer getCheckInAmount() {
+        return checkInInfoService.getCheckInAmount();
     }
 }

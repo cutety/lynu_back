@@ -20,4 +20,8 @@ public class CheckInInfoService {
     public int update(CheckInInfo record) {
         return checkInInfoMapper.updateByPrimaryKeySelective(record);
     }
+
+    public int getCheckInAmount() {
+        return checkInInfoMapper.getCheckInAmount();
+    }
 }

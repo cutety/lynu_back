@@ -16,4 +16,6 @@ public interface CheckInInfoMapper {
     int updateByPrimaryKeySelective(CheckInInfo record);
 
     int updateByPrimaryKey(CheckInInfo record);
+
+    int getCheckInAmount();
 }
