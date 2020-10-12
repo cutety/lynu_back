@@ -11,7 +11,11 @@ import javax.websocket.server.ServerEndpoint;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArraySet;
-
+/** * @Author cutety 
+* @Description //TODO 这个类的主要功能是为了跟前端进行消息推送，如果有人进行了报到可以通知前端页面对数据进行更新。 
+* @Date 16:58 2020/10/12 * @Param  
+* @return  
+**/
 @Component
 @ServerEndpoint("/websocket/{shopId}")
 //此注解相当于设置访问URL

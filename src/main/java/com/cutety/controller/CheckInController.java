@@ -13,12 +13,20 @@ import java.util.Arrays;
 @RestController
 @RequestMapping("/")
 public class CheckInController {
+    //创建一个数组里面存放当前提交的过人的id
     private static String[] reqCache = new String[10];
+    //这个是个计数器，每次到10就会清零，让reqCache从头开始，主要作用是使前面的缓存失效
     private static Integer reqCacheCounter = 0;
     @Autowired
     private CheckInInfoService checkInInfoService;
     @Autowired
     private WebSocket webSocket;
+
+    /** * @Author cutety
+    * @Description //TODO 给前端结果，duplicate是重复提交，fail是数据库这边出问题了，一般情况下是输错了学号，suc就是插入成功
+    * @Date 16:49 2020/10/12 * @Param [record]
+    * @return java.lang.String
+    **/
     @ResponseBody
     @GetMapping("/checkIn")
     public String checkIn(CheckInInfo record) {
@@ -52,6 +60,11 @@ public class CheckInController {
         }
     }
 
+    /** * @Author cutety
+    * @Description //TODO 获取报道人数
+    * @Date 16:49 2020/10/12 * @Param []
+    * @return java.lang.Integer
+    **/
     @ResponseBody
     @GetMapping("/checkInAmount")
     public Integer getCheckInAmount() {

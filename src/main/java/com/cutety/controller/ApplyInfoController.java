@@ -23,6 +23,11 @@ public class ApplyInfoController {
     @Autowired
     private ApplyInfoService applyInfoService;
 
+    /** * @Author cutety
+    * @Description //TODO 根据年级获取专业热度排行
+    * @Date 16:54 2020/10/12 * @Param [year]
+    * @return com.alibaba.fastjson.JSONArray
+    **/
     @GetMapping("/major_rank/{year}")
     public JSONArray getMajorRank(@PathVariable String year) {
         List<Map<String, Integer>> majorRank = applyInfoService.getMajorRank(year);
