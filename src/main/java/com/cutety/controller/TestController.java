@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /** * @Author cutety 
-* @Description //TODO 用于测试websocket 
-* @Date 16:54 2020/10/12 * @Param  
+* @Description //TODO 用于测试websocket
+* @Date 17:26 2020/10/12 * @Param
 * @return  
 **/
 @RestController
