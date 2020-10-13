@@ -1,20 +1,27 @@
 package com.cutety.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.cutety.entity.CheckInInfo;
 import com.cutety.service.CheckInInfoService;
+import com.cutety.utils.FastJsonUtil;
+import com.cutety.utils.TimeUtil;
 import com.cutety.utils.WebSocket;
-import lombok.Synchronized;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Arrays;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/")
 public class CheckInController {
     //创建一个数组里面存放当前提交的过人的id
-    private static String[] reqCache = new String[10];
+    private static String[] reqCache = new String[5];
     //这个是个计数器，每次到10就会清零，让reqCache从头开始，主要作用是使前面的缓存失效
     private static Integer reqCacheCounter = 0;
     @Autowired
@@ -52,7 +59,10 @@ public class CheckInController {
         record.setCheckInStatus(1);
         int res = checkInInfoService.update(record);
         if(res == 1) {
-            webSocket.sendAllMessage("update");
+            List<Map<String, Object>> checkInInfo = checkInInfoService.getCheckInInfo("");
+            List<List<Object>> lists = FastJsonUtil.getLists(checkInInfo);
+            Object parse = JSONObject.parse(JSONObject.toJSONString(lists));
+            webSocket.sendOneMessage("info",parse.toString());
             System.out.println("添加"+stuId+"成功");
             return "suc";
         } else {
@@ -69,5 +79,15 @@ public class CheckInController {
     @GetMapping("/checkInAmount")
     public Integer getCheckInAmount() {
         return checkInInfoService.getCheckInAmount();
+    }
+    /** * @Author cutety 
+    * @Description //TODO 根据年级获取报到信息 
+    * @Date 11:04 2020/10/13 * @Param [year] 
+    * @return java.util.List<java.util.List<java.lang.String>> 
+    **/
+    @GetMapping("/checkInInfo/{year}")
+    public List<List<Object>> getCheckInInfo(@PathVariable String year) {
+        List<Map<String, Object>> checkInInfo = checkInInfoService.getCheckInInfo(year);
+        return FastJsonUtil.getLists(checkInInfo);
     }
 }

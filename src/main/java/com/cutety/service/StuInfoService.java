@@ -42,8 +42,8 @@ public class StuInfoService {
     }
 
 
-    public List<Map<String, String>> getStuInfoTable(String year) {
-        List<Map<String, String>> map = stuInfoMapper.getStuInfoTable(year);
+    public List<Map<String, Object>> getStuInfoTable(String year) {
+        List<Map<String, Object>> map = stuInfoMapper.getStuInfoTable(year);
         return map;
     }
 

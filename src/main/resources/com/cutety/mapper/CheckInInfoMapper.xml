@@ -96,4 +96,13 @@
     WHERE
     check_in_status = 1
   </select>
+
+  <select id="getCheckInInfo" resultType="java.util.LinkedHashMap" parameterType="java.lang.String">
+    <bind name="pattern" value="year+'%'"/>
+    SELECT stu_name, major, check_in_time
+    from check_in_info
+    where check_in_status = 1
+    and stu_id like #{pattern,jdbcType=VARCHAR}
+    order by check_in_time
+  </select>
 </mapper>

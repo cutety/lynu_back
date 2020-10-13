@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.parser.Feature;
 import com.alibaba.fastjson.parser.ParserConfig;
 import com.cutety.service.StuInfoService;
+import com.cutety.utils.FastJsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -60,16 +61,9 @@ public class StuInfoController {
     * @return java.util.List<java.util.List<java.lang.String>> 
     **/
     @GetMapping("/table/{year}")
-    public List<List<String>> getStuInfoTable(@PathVariable String year) {
-        List<Map<String, String>> stuInfoTable = stuInfoService.getStuInfoTable(year);
-        List<List<String>> list = new ArrayList<>();
-        stuInfoTable.forEach(item -> {
-            //List<String>
-            List<String> list1 = new ArrayList<>();
-            item.forEach((k,v) -> list1.add(v));
-            list.add(list1);
-        });
-        return list;
+    public List<List<Object>> getStuInfoTable(@PathVariable String year) {
+        List<Map<String, Object>> stuInfoTable = stuInfoService.getStuInfoTable(year);
+        return FastJsonUtil.getLists(stuInfoTable);
     }
     /** * @Author cutety 
     * @Description //TODO 根据年级获取户口地址 

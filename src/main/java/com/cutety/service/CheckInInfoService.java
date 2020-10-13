@@ -7,6 +7,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Map;
+
+
 /**
  * Description:
  * Created by cutety on 2020/9/24,13:07.
@@ -22,5 +26,8 @@ public class CheckInInfoService {
     }
     public int getCheckInAmount() {
         return checkInInfoMapper.getCheckInAmount();
+    }
+    public List<Map<String,Object>> getCheckInInfo(String year) {
+        return checkInInfoMapper.getCheckInInfo(year);
     }
 }

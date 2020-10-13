@@ -34,7 +34,7 @@ public interface StuInfoMapper {
 
     List<Map<Integer, Integer>> getAgeDistribution(String year);
 
-    List<Map<String, String>> getStuInfoTable(String year);
+    List<Map<String, Object>> getStuInfoTable(String year);
 
     List<Map<String, String>> getStuHouseholdRegistry(String year);
 

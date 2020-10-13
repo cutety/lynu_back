@@ -3,6 +3,9 @@ package com.cutety.mapper;
 import com.cutety.entity.CheckInInfo;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Map;
+
 @Component
 public interface CheckInInfoMapper {
     int deleteByPrimaryKey(Integer id);
@@ -18,4 +21,6 @@ public interface CheckInInfoMapper {
     int updateByPrimaryKey(CheckInInfo record);
 
     int getCheckInAmount();
+
+    List<Map<String, Object>> getCheckInInfo(String year);
 }
