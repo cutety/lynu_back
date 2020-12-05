@@ -8,6 +8,7 @@
     <result column="major" jdbcType="VARCHAR" property="major"/>
     <result column="check_in_status" jdbcType="INTEGER" property="checkInStatus" />
     <result column="check_in_time" jdbcType="TIMESTAMP" property="checkInTime" />
+    <result column="is_single" jdbcType="INTEGER" property="isSingle"/>
   </resultMap>
   <sql id="Base_Column_List">
     id, stu_id,stu_name,marjor check_in_status, check_in_time
@@ -104,5 +105,13 @@
     where check_in_status = 1
     and stu_id like #{pattern,jdbcType=VARCHAR}
     order by check_in_time
+  </select>
+
+  <select id="getRelationStatus" resultType="java.util.LinkedHashMap" parameterType="java.lang.String">
+    <bind name="pattern" value="year+'%'"/>
+    select is_single,count(is_single)
+    from check_in_info
+    where stu_id like #{pattern,jdbcType=VARCHAR}
+    group by is_single
   </select>
 </mapper>

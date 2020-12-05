@@ -5,7 +5,7 @@ server:
 
 spring:
   profiles:
-    active: dev
+    active: dev #prod
   datasource:
     name: root
     url: jdbc:mysql:/0.0.0.0/stu_it_info?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=true
