@@ -32,7 +32,8 @@ Vue、WebSocket、axios、nginx、Echarts、DataV
 
 * 在resource里面添加`application-dev.yml`配置相关配置项，一般只需要配置数据库即可（可以照着`application-prod.yml`进行配置
 * 创建数据库`stu_it_info`，导入数据库文件`source stu_it_info.sql;`
-* 前端地址https://github.com/cutety/big-screen-vue-datav，请配合前端使用
+* 前端地址https://github.com/cutety/big-screen-vue-datav
+请配合前端使用
 
 
 
